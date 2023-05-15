@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war-card-game-tdd", "war-card-game-tdd\war-card-game-tdd.csproj", "{97FE02CB-24FA-4301-B764-BF28646D6DBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "war-card-game-tdd", "war-card-game-tdd\war-card-game-tdd.csproj", "{97FE02CB-24FA-4301-B764-BF28646D6DBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "war-card-game-tdd-tests-unit", "war-card-game-tdd-tests-unit\war-card-game-tdd-tests-unit.csproj", "{E584269D-BAAB-4416-8839-C5AFDCB56CD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "war-card-game-tdd-tests", "war-card-game-tdd-tests-unit\war-card-game-tdd-tests.csproj", "{E584269D-BAAB-4416-8839-C5AFDCB56CD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
