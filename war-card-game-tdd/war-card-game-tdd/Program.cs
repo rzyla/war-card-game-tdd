@@ -21,42 +21,18 @@ while (players == 0);
 
 var game = new Game(players);
 
+do
+{
+    game.Play();
 
-/*
- - Witaj
- - Podaj liczbę graczy: <liczba_graczy>
- 
- -> Wygeneruj nową grę: Gracze, Ilosc interacji
- -> Wygeneruj graczy (liczba_graczy): Imie, TaliaDostepna, TaliaUzyta
-    - Wylosuj imię
- -> Wygeneruj talie 
-    - Nowa
-    - Tasuj
-    - Rozdaj -> do graczy: TaliaDostepna
- -> Graj
-    ? Jesli gracz nie ma dostepej tali a ma talie uzyta dodaj karty i potasuj
-    ? Jesli tylko 1 gracz ma karty > Wygrana
-    - Wybierz graczy którzy mają jeszcze karty
-    - Pobierz po 1 karcie z każdego deku
-    - Porównaj karty
-        - Jeśli jest wojna (gracz musi miec conajmniej jeszcze 2 karty, jak nie to przegrywa wojne)
-            - Pobierz 1 karte
-            - Pobierz 1 karte i porownaj
-                ? Jesli dalej wojna powtórz
-    - Zwyciezca zabiera karty > TaliaUzyta
-  -> Wyświetl zwycięzce i ilość interacji              
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- */
+    Console.Clear();
+    Console.Write(game.Display());
+
+    Thread.Sleep(100);
+}
+while (game.Winner() == null);
+
+var winner = game.Winner();
+
+Console.WriteLine(string.Format("{0} win in {1} iterations", winner?.Name.ToUpper(), game.Iteration));
+Console.ReadLine();

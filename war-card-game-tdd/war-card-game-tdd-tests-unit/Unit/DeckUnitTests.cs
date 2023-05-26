@@ -144,8 +144,7 @@ namespace war_card_game_tdd_tests.Unit
         [Test]
         public void Split_ShouldReturnExpectedPayers([Values(2, 3, 4, 5, 6)] int players)
         {
-            // Arrange
-            // Act
+            // Arrange & Act
             var playersList = PlayerUtils.Create(players);
             DeckUtils.New()
                 .Shuffle()

@@ -8,9 +8,12 @@ namespace war_card_game_tdd.Utils
         {
             var players = new List<Player>();
 
-            for (var i = 0; i < count; i++)
+            if (count > 0)
             {
-                players.Add(new Player());
+                for (var i = 0; i < count; i++)
+                {
+                    players.Add(new Player());
+                }
             }
 
             return players;
@@ -48,6 +51,11 @@ namespace war_card_game_tdd.Utils
         public static bool ValidateNumberOfPlayers(int? players)
         {
             return players >= 2 && players <= 6;
+        }
+
+        public static Player GetPlayerByName(this List<Player> players, string name)
+        {
+            return players.Where(w => w.Name.Equals(name)).First();
         }
     }
 }

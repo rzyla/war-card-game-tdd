@@ -52,7 +52,7 @@ namespace war_card_game_tdd.Utils
                     if(cards.Count > 0)
                     {
                         var card = cards.First();
-                        player.AddCard(card);
+                        player.AddToCards(card);
                         cards.Remove(card);
                     }
                 }
