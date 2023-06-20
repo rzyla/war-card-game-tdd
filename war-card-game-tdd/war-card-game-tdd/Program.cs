@@ -23,10 +23,10 @@ var game = new Game(players);
 
 do
 {
-    game.Play();
-
+    game.GetCardsFromPlayers();
     Console.Clear();
     Console.Write(game.Display());
+    game.AddCardsToWinner();
 
     Thread.Sleep(100);
 }

@@ -8,9 +8,9 @@ namespace war_card_game_tdd
     public class Game
     {
         public int Iteration { get; set; } = 0;
-        public List<Player> Players { get; private set; } = new List<Player>();
-        public List<Pool> Pool { get; private set; } = new List<Pool>();
-        public IEnumerable<Value> Values { get; private set; }
+        public List<Player> Players { get; set; }
+        public List<Pool> Pool { get; set; }
+        public IEnumerable<Value> Values { get; set; }
 
         public Game(int players)
         {
@@ -31,29 +31,32 @@ namespace war_card_game_tdd
                    .Reverse();
         }
 
-        public void Play(bool onlyAddCardToPool = false)
+        public void GetCardsFromPlayers(int cards = 1)
         {
             IfPlayerHasntCardAddDiscardToCardsAndShuffle();
 
             var players = Players.Where(w => w.Cards.Count > 0).ToList();
 
-            if(players == null)
+            if (!players.Any())
             {
                 throw new ApplicationException("No available players");
             }
 
-            foreach(var player in players)
+            foreach (var player in players)
             {
-                Pool.AddCard(player.Name, player.GetCard());
+                for(var i = 0; i < cards; i++)
+                { 
+                    Pool.AddCard(player.Name, player.GetCard());
+                }
             }
 
-            if(!onlyAddCardToPool)
+            if (cards == 1)
             {
                 IfPlayerHasntCardSetAddAllRequiredCardsFalse();
 
-                if (!ComparePoolAndAddCardsToWinner())
+                if (!ComparePool())
                 {
-                    Play(true);
+                    GetCardsFromPlayers(2);
                 }
 
                 Iteration++;
@@ -89,7 +92,7 @@ namespace war_card_game_tdd
             }
         }
 
-        public bool ComparePoolAndAddCardsToWinner()
+        public bool ComparePool()
         {
             foreach (var value in Values)
             {
@@ -103,22 +106,7 @@ namespace war_card_game_tdd
 
                     if (count > 0)
                     {
-                        if (count == 1)
-                        {
-                            var first = list.First();
-                            var player = Players.GetPlayerByName(first.Name);
-
-                            foreach (var pool in Pool)
-                            {
-                                player.Discard.AddRange(pool.Cards);
-                            }
-
-                            Pool.Clean();
-
-                            return true;
-                        }
-
-                        return false;
+                        return count == 1;
                     }
                 }
             }
@@ -126,17 +114,43 @@ namespace war_card_game_tdd
             return false;
         }
 
+        public void AddCardsToWinner()
+        {
+            foreach (var value in Values)
+            {
+                var list = Pool.Where(w => w.Cards.Count > 0
+                    && w.Cards.Last().Value.Equals(value)
+                    && w.AddAllRequiredCards == true);
+
+                if (list.Count() == 1)
+                {
+                    var winner = list.First();
+                    var player = Players.GetPlayerByName(winner.Name);
+
+                    foreach (var pool in Pool)
+                    {
+                        player.Discard.AddRange(pool.Cards);
+                    }
+
+                    Pool.Clean();
+                }
+            }
+        }
+
         public Player? Winner()
         {
-            var playersWithAvailableCards = Players
-                .Where(w => !(w.Cards.Count + w.Discard.Count).Equals(0))
-                .Count();
-
-            if(playersWithAvailableCards == 1)
+            if (Players.Any())
             {
-                return Players
+                var playersWithAvailableCards = Players
                     .Where(w => !(w.Cards.Count + w.Discard.Count).Equals(0))
-                    .First();
+                    .Count();
+
+                if (playersWithAvailableCards == 1)
+                {
+                    return Players
+                        .Where(w => !(w.Cards.Count + w.Discard.Count).Equals(0))
+                        .First();
+                }
             }
 
             return null;
@@ -146,27 +160,30 @@ namespace war_card_game_tdd
         {
             var sb = new StringBuilder();
 
-            foreach(var pool in Pool)
+            if (Players.Any())
             {
-                var cards = pool.Cards.Select(s => s.Value);
-                sb.Append(string.Format("{0}: {1}{2}", pool.Name, string.Join(" ", cards), Environment.NewLine));
-            }
-
-            sb.Append(string.Format("{0}", Environment.NewLine));
-
-            foreach (var player in Players)
-            {
-                sb.Append(string.Format("{0} ({1}\\{2}){3}", player.Name, player.Cards.Count, player.Discard.Count, Environment.NewLine));
-
-                foreach(var value in Values)
+                foreach (var pool in Pool)
                 {
-                    var sum = player.Cards.Where(w => w.Value.Equals(value)).Count()
-                        + player.Discard.Where(w => w.Value.Equals(value)).Count();
-
-                    sb.Append(String.Format("{0}:{1} ", value, sum));
+                    var cards = pool.Cards.Select(s => s.Value);
+                    sb.Append(string.Format("{0}: {1}{2}", pool.Name, string.Join(" ", cards), Environment.NewLine));
                 }
 
-                sb.Append(string.Format("{0}{0}", Environment.NewLine));
+                sb.Append(string.Format("{0}", Environment.NewLine));
+
+                foreach (var player in Players)
+                {
+                    sb.Append(string.Format("{0} ({1}\\{2}){3}", player.Name, player.Cards.Count, player.Discard.Count, Environment.NewLine));
+
+                    foreach (var value in Values)
+                    {
+                        var sum = player.Cards.Where(w => w.Value.Equals(value)).Count()
+                            + player.Discard.Where(w => w.Value.Equals(value)).Count();
+
+                        sb.Append(String.Format("{0}:{1} ", value, sum));
+                    }
+
+                    sb.Append(string.Format("{0}{0}", Environment.NewLine));
+                }
             }
 
             return sb.ToString();

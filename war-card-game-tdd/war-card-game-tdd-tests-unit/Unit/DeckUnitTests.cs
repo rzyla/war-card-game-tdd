@@ -6,7 +6,7 @@ namespace war_card_game_tdd_tests.Unit
     public class DeckUnitTests
     {
         [Test]
-        public void New_ShouldReturnElementsEqualsMultiplicationOfColorAndValue()
+        public void DeckUtils_New_ReturnedElementsShouldEqualsMultiplicationOfColorAndValue()
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -21,7 +21,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void New_ShouldReturnElementsOnlyInEnumsColors()
+        public void DeckUtils_New_ReturnedElementsShouldOnlyInEnumsColors()
         {
             // Arrange
             var expectedColors = Enum.GetValues(typeof(Color)).Length;
@@ -34,7 +34,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void New_ShouldReturnElementsOnlyInEnumsValues()
+        public void DeckUtils_New_ReturnedElementsShouldOnlyInEnumsValues()
         {
             // Arrange
             var expectedValues = Enum.GetValues(typeof(Value)).Length;
@@ -47,7 +47,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void New_ShouldReturnFirstElementValueEqualToFirstEnumValue()
+        public void DeckUtils_New_ReturnedFirstElementShouldValueEqualToFirstEnumValue()
         {
             // Arrange
             var values = Enum.GetValues(typeof(Value));
@@ -61,7 +61,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void New_ShouldReturnFirstElementValueEqualToFirstEnumColor()
+        public void DeckUtils_New_ReturnedFirstElementShouldValueEqualToFirstEnumColor()
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -75,7 +75,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void New_ShouldReturnLastElementValueEqualToLastEnumValue()
+        public void DeckUtils_New_ReturnedLastElementShouldValueEqualToLastEnumValue()
         {
             // Arrange
             var values = Enum.GetValues(typeof(Value));
@@ -89,7 +89,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void New_ShouldReturnLastElementColorEqualToLastEnumColor()
+        public void DeckUtils_New_ReturnedLastElementShouldColorEqualToLastEnumColor()
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -103,7 +103,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Shuffle_ShouldReturnElementsEqualsMultiplicationOfColorAndValue()
+        public void DeckUtils_Shuffle_ReturnedElementsShouldEqualsMultiplicationOfColorAndValue()
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -119,7 +119,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Shuffle_ShouldReturnDifferentDeck()
+        public void DeckUtils_Shuffle_ReturnedDeckShouldBeDifferent()
         {
             // Arrange
             var equal = 0;
@@ -142,7 +142,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Split_ShouldReturnExpectedPayers([Values(2, 3, 4, 5, 6)] int players)
+        public void DeckUtils_Split_ShouldReturnExpectedPayers([Values(2, 3, 4, 5, 6)] int players)
         {
             // Arrange & Act
             var playersList = PlayerUtils.Create(players);
@@ -155,7 +155,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Split_ShouldReturnElementsEqualsMultiplicationOfColorAndValue([Values(2, 3, 4, 5, 6)] int players)
+        public void DeckUtils_Split_ReturnedElementsShouldEqualsMultiplicationOfColorAndValue([Values(2, 3, 4, 5, 6)] int players)
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -175,7 +175,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Split_ShouldReturnElementsEqualsMultiplicationOfColorAndValueDivisonPlayers([Values(2, 4)] int players)
+        public void DeckUtils_Split_ReturnedElementsShouldEqualsMultiplicationOfColorAndValueDivisonPlayers([Values(2, 4)] int players)
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));

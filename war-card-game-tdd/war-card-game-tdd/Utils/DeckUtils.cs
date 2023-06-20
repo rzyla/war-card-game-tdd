@@ -40,20 +40,23 @@ namespace war_card_game_tdd.Utils
 
         public static void Split(this List<Card> cards, IEnumerable<Player> players)
         {
-            foreach (var player in players)
-            {
-                player.Cards = new List<Card>();
-            }
-
-            while (cards.Count > 0)
+            if (players.Any())
             {
                 foreach (var player in players)
                 {
-                    if(cards.Count > 0)
+                    player.Cards = new List<Card>();
+                }
+
+                while (cards.Count > 0)
+                {
+                    foreach (var player in players)
                     {
-                        var card = cards.First();
-                        player.AddToCards(card);
-                        cards.Remove(card);
+                        if (cards.Count > 0)
+                        {
+                            var card = cards.First();
+                            player.AddToCards(card);
+                            cards.Remove(card);
+                        }
                     }
                 }
             }

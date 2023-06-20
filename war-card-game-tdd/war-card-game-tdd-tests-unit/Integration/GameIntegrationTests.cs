@@ -7,7 +7,7 @@ namespace war_card_game_tdd_tests.Integration
     public class GameIntegrationTests
     {
         [Test]
-        public void Constructor_ShouldCreatePlayers([Values(2, 3, 4, 5, 6)] int players)
+        public void Game_ShouldCreateExpectedNumbersOfPlayers([Values(2, 3, 4, 5, 6)] int players)
         {
             // Arrange & Act
             var game = new Game(players);
@@ -17,7 +17,7 @@ namespace war_card_game_tdd_tests.Integration
         }
 
         [Test]
-        public void Constructor_ShouldCreateDeck([Values(2, 3, 4, 5, 6)] int players)
+        public void Game_ShouldCreateDeckAndSplitToPlayers([Values(2, 3, 4, 5, 6)] int players)
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -33,7 +33,7 @@ namespace war_card_game_tdd_tests.Integration
         }
 
         [Test]
-        public void IfPlayerHasntCardAddDiscardToCards_SumPlayersCardsEqualsMultiplicationOfColorAndValue([Values(2, 3, 4, 5, 6)] int players)
+        public void Game_IfPlayerHasntCardAddDiscardToCards_SumPlayersCardsEqualsMultiplicationOfColorAndValue([Values(2, 3, 4, 5, 6)] int players)
         {
             // Arrange
             var colors = Enum.GetValues(typeof(Color));
@@ -52,19 +52,6 @@ namespace war_card_game_tdd_tests.Integration
 
             // Assert
             Assert.That(sum, Is.EqualTo(expectedElements));
-        }
-
-        [Test]
-        public void Winner_ShouldReturnOneElement([Values(2, 3, 4, 5, 6)] int players)
-        {
-            // Arrange
-            var game = new Game(players);
-
-            // Act
-            var winner = game.Winner();
-
-            // Assert
-            Assert.That(winner, Is.Not.Null);
         }
     }
 }

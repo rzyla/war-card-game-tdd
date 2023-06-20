@@ -7,7 +7,22 @@ namespace war_card_game_tdd_tests.Unit
     public class PoolUnitTests
     {
         [Test]
-        public void Create_ShouldReturnEmptyList()
+        public void Pool_NameEqualToParametrNameCardsIsEmptyAndAddAllRequiredCardsIsNull([Values("Mark", "Ben")] string name)
+        {
+            // Arrange & Act
+            var pool = new Pool(name);
+            
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(pool.Name, Is.EqualTo(name));
+                Assert.That(pool.Cards, Is.Empty);
+                Assert.That(pool.AddAllRequiredCards, Is.Null);
+            });
+        }
+
+        [Test]
+        public void PoolUtils_Create_ShouldReturnEmptyPoolList()
         {
             // Arrange
             var players = new List<Player>();
@@ -24,14 +39,14 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Create_ShouldReturnNoEmptyList()
+        public void PoolUtils_Create_ShouldReturnNoEmptyPoolList([Values("Mark", "Ben")] string name)
         {
             // Arrange
             var players = new List<Player>() 
             { 
                 new Player()
                 { 
-                    Name = "Ben"
+                    Name = name
                 }
             };
 
@@ -45,7 +60,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Clean_ShouldReturnEmptyListBecausePoolListIsEmpty()
+        public void PoolUtils_Clean_AfterCleanShouldReturnEmptyListBecausePoolListIsEmpty()
         {
             // Arrange
             var pool = new List<Pool>();
@@ -62,12 +77,12 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Clean_ShouldReturnNoEmptyListBecausePoolListIsNotEmpty()
+        public void PoolUtils_Clean_AfterCleanShouldReturnNoEmptyListBecausePoolListIsNotEmpty([Values("Mark", "Ben")] string name)
         {
             // Arrange
             var pool = new List<Pool>
             {
-                new Pool("Ben")
+                new Pool(name)
             };
 
             // Act
@@ -82,12 +97,12 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Clean_ShouldReturnAddAllRequiredCardsNull()
+        public void PoolUtils_Clean_AfterCleanShouldSetAddAllRequiredCardsOnNull([Values("Mark", "Ben")] string name)
         {
             // Arrange
             var pool = new List<Pool>
             {
-                new Pool("Ben")
+                new Pool(name)
             };
 
             // Act
@@ -101,12 +116,12 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void Clean_ShouldReturnEmptyCardsList()
+        public void PoolUtils_Clean_AfterCleanShouldSetEmptyCardsListForAllPlayer([Values("Mark", "Ben")] string name)
         {
             // Arrange
             var pool = new List<Pool>
             {
-                new Pool("Ben")
+                new Pool(name)
             };
             var cards = new List<Card>()
             {
@@ -130,7 +145,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void GetPoolByPlayerName_ShouldReturnInvalidOperationException([Values("Mark", "Ben")] string name)
+        public void PoolUtils_GetPoolByPlayerName_ShouldReturnInvalidOperationException([Values("Mark", "Ben")] string name)
         {
             // Arrange
             var pool = new List<Pool>();
@@ -140,7 +155,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void GetPoolByPlayerName_ShouldReturnPlayerByName([Values("Mark", "Ben")] string name)
+        public void PoolUtils_GetPoolByPlayerName_ShouldReturnPoolPlayerByName([Values("Mark", "Ben")] string name)
         {
             // Arrange
             var pool = new List<Pool>
@@ -156,7 +171,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void AddCard_EmptyNaneShouldThrowInvalidOperationException([Values("Mark", "Ben")] string name)
+        public void PoolUtils_AddCard_EmptyNameShouldThrowInvalidOperationException([Values("Mark")] string name)
         {
             // Arrange
             var pool = new List<Pool>
@@ -169,7 +184,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void AddCard_EmptyCardShouldSetAddAllRequiredCardsFalse([Values("Mark", "Ben")] string name)
+        public void PoolUtils_AddCard_AfterAddingEmptyCardToPoolPlayerShouldSetAddAllRequiredCardsOnFalse([Values("Mark")] string name)
         {
             // Arrange
             var pool = new List<Pool>
@@ -186,7 +201,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void AddCard_ShouldSetAddAllRequiredCardsTrue([Values("Mark", "Ben")] string name)
+        public void PoolUtils_AddCard_AfterAddingCardToPoolPlayerShouldSetAddAllRequiredCardsOnTrue([Values("Mark")] string name)
         {
             // Arrange
             var pool = new List<Pool>
@@ -204,7 +219,7 @@ namespace war_card_game_tdd_tests.Unit
         }
 
         [Test]
-        public void AddCard_2([Values("Mark", "Ben")] string name)
+        public void PoolUtils_AddCard_AfterAddingCardToPoolPlayerShouldHaveOneCardInPool([Values("Mark")] string name)
         {
             // Arrange
             var expected = 1;
@@ -219,7 +234,7 @@ namespace war_card_game_tdd_tests.Unit
             var poolPlayer = pool.GetPoolByPlayerName(name);
 
             // Assert
-            Assert.AreEqual(expected, poolPlayer.Cards.Count);
+            Assert.That(poolPlayer.Cards, Has.Count.EqualTo(expected));
         }
     }
 }
