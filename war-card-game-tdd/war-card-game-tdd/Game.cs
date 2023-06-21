@@ -31,7 +31,7 @@ namespace war_card_game_tdd
                    .Reverse();
         }
 
-        public void GetCardsFromPlayers(int cards = 1)
+        public void GetCardsFromPlayers(bool onlyAddCardToPool = false)
         {
             IfPlayerHasntCardAddDiscardToCardsAndShuffle();
 
@@ -44,19 +44,21 @@ namespace war_card_game_tdd
 
             foreach (var player in players)
             {
-                for(var i = 0; i < cards; i++)
-                { 
+                Pool.AddCard(player.Name, player.GetCard());
+
+                if(onlyAddCardToPool)
+                {
                     Pool.AddCard(player.Name, player.GetCard());
                 }
             }
 
-            if (cards == 1)
+            if (!onlyAddCardToPool)
             {
                 IfPlayerHasntCardSetAddAllRequiredCardsFalse();
 
                 if (!ComparePool())
                 {
-                    GetCardsFromPlayers(2);
+                    GetCardsFromPlayers(true);
                 }
 
                 Iteration++;
