@@ -34,6 +34,7 @@ namespace war_card_game_tdd
         public void GetCardsFromPlayers(bool onlyAddCardToPool = false)
         {
             IfPlayerHasntCardAddDiscardToCardsAndShuffle();
+            IfPlayerHasntCardSetAddAllRequiredCardsFalse();
 
             var players = Players.Where(w => w.Cards.Count > 0).ToList();
 
@@ -48,14 +49,13 @@ namespace war_card_game_tdd
 
                 if(onlyAddCardToPool)
                 {
+                    IfPlayerHasntCardSetAddAllRequiredCardsFalse();
                     Pool.AddCard(player.Name, player.GetCard());
                 }
             }
 
             if (!onlyAddCardToPool)
             {
-                IfPlayerHasntCardSetAddAllRequiredCardsFalse();
-
                 if (!ComparePool())
                 {
                     GetCardsFromPlayers(true);
