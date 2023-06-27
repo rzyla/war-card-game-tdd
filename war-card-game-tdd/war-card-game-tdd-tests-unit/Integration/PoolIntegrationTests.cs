@@ -5,7 +5,7 @@ namespace war_card_game_tdd_tests.Integration
     public class PoolIntegrationTests
     {
         [Test]
-        public void Game_Create_ShouldReturnNoEmptyList([Values(2, 3, 4, 5, 6)] int players)
+        public void Game_Create_ShouldReturnNoEmptyPoolList([Values(2, 3, 4, 5, 6)] int players)
         {
             // Arrange & Act
             var game = new Game(players);
